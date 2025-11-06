@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anna University CGPA Calculator (2025)</title>
+  <meta name="description" content="Anna University CGPA Calculator — calculate CGPA and convert to percentage using the official Anna University formula. Free, accurate and mobile-friendly tool for Anna University students." />
+  <style>
+    /* ---------- Global Styles (same as your homepage) ---------- */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f7f9fc;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2193b0, #6dd5ed);
+      color: white;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.5px;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      transition: 0.3s;
+      padding: 8px 16px;
+      border-radius: 6px;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* ---------- Container ---------- */
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* ---------- Card / Calculator ---------- */
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      padding: 30px 40px;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h2 {
+      color: #2193b0;
+      margin-bottom: 10px;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .row input[type="text"], .row input[type="number"], .row select {
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+    }
+
+    .small {
+      width: 120px;
+    }
+
+    .medium {
+      width: 220px;
+    }
+
+    button {
+      background: #2193b0;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin: 6px;
+    }
+
+    button:hover {
+      background: #176d85;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* ---------- Content ---------- */
+    article {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 30px 40px;
+    }
+
+    article h2 {
+      color: #176d85;
+      margin-top: 30px;
+    }
+
+    article pre, article table {
+      background: #f0f6fa;
+      padding: 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    article table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+
+    article th, article td {
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    article th {
+      background: #2193b0;
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #2193b0, #6dd5ed);
+      color: white;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .container {
+        padding: 10px;
+      }
+      article {
+        padding: 20px;
+      }
+      .row { flex-direction: column; }
+      .small, .medium { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ---------- Header (UNCHANGED) ---------- -->
+  <header>
+    <h1>IPU CGPA Calculator</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Blog</a>
+    </nav>
+  </header>
+
+  <!-- ---------- Main Container (Anna University page content) ---------- -->
+  <div class="container">
+
+    <!-- ---------- Anna University CGPA Calculator Card (tool at top) ---------- -->
+    <div class="card">
+      <h2>Anna University CGPA Calculator</h2>
+      <p>Enter subjects, credits and select grades (O=10, A+=9, A=8, B+=7, B=6, C=5, RA/U=0). Click Calculate to get CGPA and percentage.</p>
+
+      <div id="subjects">
+        <!-- One initial row -->
+        <div class="row subject-row">
+          <input type="text" class="medium subject-name" placeholder="Subject name (optional)" />
+          <input type="number" min="0" step="1" class="small credit" placeholder="Credits" />
+          <select class="small grade">
+            <option value="10">O</option>
+            <option value="9">A+</option>
+            <option value="8">A</option>
+            <option value="7">B+</option>
+            <option value="6">B</option>
+            <option value="5">C</option>
+            <option value="0">RA / U</option>
+          </select>
+          <button type="button" onclick="removeThis(this)" title="Remove">Remove</button>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <button onclick="addRow()">Add Subject</button>
+        <button onclick="calculateAnnaCGPA()">Calculate</button>
+        <button onclick="resetAll()">Calculate Again</button>
+      </div>
+
+      <div class="result" id="result"></div>
+    </div>
+
+    <!-- ---------- Article: Anna University content in Option A inline format ---------- -->
+    <article>
+  <section>
+    <span style="font-weight: 400;">Calculate your Anna University CGPA instantly with our accurate calculator supporting Regulations 2021, 2017, and 2013. Get precise results based on official grading formulas used by Anna University for all undergraduate and postgraduate programs.</span>
+    <p><span style="font-weight: 400;">Use the Anna University CGPA Calculator to easily compute your cumulative grade point average and percentage as per official university rules.</span></p>
+  </section>
+
+  <section>
+    <h2><span style="font-weight: 400;">Use the Anna University CGPA Calculator</span></h2>
+    <p><span style="font-weight: 400;">Our CGPA calculator is designed specifically for Anna University students across all engineering and technology disciplines. Simply select your regulation year, enter your semester-wise GPA values and corresponding credits, and get your cumulative grade point average instantly. The calculator automatically applies the correct formula based on your chosen regulation, ensuring 100% accuracy in results.</span></p>
+  </section>
+
+  <section>
+    <h2><span style="font-weight: 400;">How to Use the CGPA Calculator (Step-by-Step)</span></h2>
+    <ol>
+      <li><b>Step 1 – Select Your Regulation:</b> <span style="font-weight: 400;">Choose your applicable regulation from the dropdown menu: Regulation 2021, 2017, or 2013. Each regulation follows slightly different credit distributions and evaluation patterns, so selecting the correct one ensures accurate calculation.</span></li>
+      <li><b>Step 2 – Enter Your Semester GPA and Credits:</b> <span style="font-weight: 400;">Input your GPA for each completed semester along with the total credits for that semester. The calculator supports up to 8 semesters for undergraduate programs.</span></li>
+      <li><b>Step 3 – Click "Calculate" to View CGPA:</b> <span style="font-weight: 400;">Once you've entered all your semester data, click the Calculate button. Your CGPA will be displayed immediately along with the equivalent percentage based on Anna University's official conversion formula.</span></li>
+    </ol>
+    <p><span style="font-weight: 400;">💡 <b>Helpful Tip:</b> Keep your semester mark sheets handy and double-check your GPA and credit values to avoid calculation errors.</span></p>
+  </section>
+
+  <section>
+    <h2><span style="font-weight: 400;">Anna University CGPA Calculation Formula</span></h2>
+    <p><span style="font-weight: 400;">Anna University uses a credit-based grading system where CGPA is calculated using the weighted average method. The official formula is:</span></p>
+    <p><b>CGPA = ∑(Grade Points × Credits) ÷ ∑Credits</b></p>
+    <p><span style="font-weight: 400;">Where:<br>• Grade Points = Your GPA for each semester<br>• Credits = Total credits for that semester<br>• ∑ = Sum of all semesters</span></p>
+  </section>
+
+  <section>
+    <h2><span style="font-weight: 400;">Example CGPA Calculation</span></h2>
+    <p><span style="font-weight: 400;">Let's say you've completed 4 semesters with the following data:</span></p>
+    <table>
+      <tr><th>Semester</th><th>GPA</th><th>Credits</th><th>Grade Points × Credits</th></tr>
+      <tr><td>Semester 1</td><td>8.5</td><td>20</td><td>170</td></tr>
+      <tr><td>Semester 2</td><td>8.0</td><td>23</td><td>184</td></tr>
+      <tr><td>Semester 3</td><td>8.8</td><td>22</td><td>193.6</td></tr>
+      <tr><td>Semester 4</td><td>9.0</td><td>24</td><td>216</td></tr>
+      <tr><td><b>Total</b></td><td>—</td><td><b>89</b></td><td><b>763.6</b></td></tr>
+    </table>
+    <p><b>CGPA = 763.6 ÷ 89 = 8.58</b></p>
+  </section>
+
+  <section>
+    <h2><span style="font-weight: 400;">Anna University Grade System (Regulation-Wise)</span></h2>
+    <h3>Regulation 2021</h3>
+    <table>
+      <tr><th>Grade</th><th>Grade Points</th><th>Marks Range</th><th>Description</th></tr>
+      <tr><td>O</td><td>10</td><td>90–100</td><td>Outstanding</td></tr>
+      <tr><td>A+</td><td>9</td><td>80–89</td><td>Excellent</td></tr>
+      <tr><td>A</td><td>8</td><td>70–79</td><td>Very Good</td></tr>
+      <tr><td>B+</td><td>7</td><td>60–69</td><td>Good</td></tr>
+      <tr><td>B</td><td>6</td><td>50–59</td><td>Above Average</td></tr>
+      <tr><td>C</td><td>5</td><td>40–49</td><td>Satisfactory (Pass)</td></tr>
+      <tr><td>U</td><td>0</td><td>Below 40</td><td>Fail</td></tr>
+    </table>
+
+    <h3>Regulation 2017</h3>
+    <table>
+      <tr><th>Grade</th><th>Grade Points</th><th>Marks Range</th><th>Description</th></tr>
+      <tr><td>O</td><td>10</td><td>90–100</td><td>Outstanding</td></tr>
+      <tr><td>A+</td><td>9</td><td>80–89</td><td>Excellent</td></tr>
+      <tr><td>A</td><td>8</td><td>70–79</td><td>Very Good</td></tr>
+      <tr><td>B+</td><td>7</td><td>60–69</td><td>Good</td></tr>
+      <tr><td>B</td><td>6</td><td>50–59</td><td>Above Average</td></tr>
+      <tr><td>C</td><td>5</td><td>45–49</td><td>Satisfactory</td></tr>
+      <tr><td>U</td><td>0</td><td>Below 45</td><td>Fail</td></tr>
+    </table>
+
+    <h3>Regulation 2013</h3>
+    <table>
+      <tr><th>Grade</th><th>Grade Points</th><th>Marks Range</th><th>Description</th></tr>
+      <tr><td>O</td><td>10</td><td>90–100</td><td>Outstanding</td></tr>
+      <tr><td>A+</td><td>9</td><td>80–89</td><td>Excellent</td></tr>
+      <tr><td>A</td><td>8</td><td>70–79</td><td>Very Good</td></tr>
+      <tr><td>B+</td><td>7</td><td>60–69</td><td>Good</td></tr>
+      <tr><td>B</td><td>6</td><td>55–59</td><td>Above Average</td></tr>
+      <tr><td>C</td><td>5</td><td>50–54</td><td>Average</td></tr>
+      <tr><td>U</td><td>0</td><td>Below 50</td><td>Fail</td></tr>
+    </table>
+    <p><span style="font-weight: 400;">Note: A minimum of 50% marks (Grade B) is required to pass, though Regulation 2017 allows passing from 45% in certain subjects.</span></p>
+  </section>
+
+  <section>
+    <h2><span style="font-weight: 400;">Example – Step-by-Step CGPA Calculation</span></h2>
+    <table>
+      <tr><th>Semester</th><th>GPA</th><th>Credits</th><th>Grade Points × Credits</th></tr>
+      <tr><td>Semester 1</td><td>7.8</td><td>22</td><td>171.6</td></tr>
+      <tr><td>Semester 2</td><td>8.2</td><td>24</td><td>196.8</td></tr>
+      <tr><td>Semester 3</td><td>8.6</td><td>23</td><td>197.8</td></tr>
+      <tr><td><b>Total</b></td><td>—</td><td><b>69</b></td><td><b>566.2</b></td></tr>
+    </table>
+    <p><b>CGPA = 566.2 ÷ 69 = 8.21</b></p>
+  </section>
+
+  <section>
+    <h2><span style="font-weight: 400;">CGPA to Percentage Conversion (Anna University Official Formula)</span></h2>
+    <p><b>Percentage = (CGPA - 0.75) × 10</b></p>
+    <p><span style="font-weight: 400;">Example conversions:</span></p>
+    <ul>
+      <li>CGPA 9.0 → 82.5%</li>
+      <li>CGPA 8.5 → 77.5%</li>
+      <li>CGPA 8.0 → 72.5%</li>
+      <li>CGPA 7.5 → 67.5%</li>
+      <li>CGPA 7.0 → 62.5%</li>
+    </ul>
+    <p><span style="font-weight: 400;">Always use this official Anna University conversion formula for transcripts, placements, or higher studies.</span></p>
+  </section>
+
+  <section>
+    <h2><span style="font-weight: 400;">Difference Between GPA and CGPA in Anna University</span></h2>
+    <table>
+      <tr><th>Aspect</th><th>GPA</th><th>CGPA</th></tr>
+      <tr><td>Scope</td><td>Single semester performance</td><td>Overall performance across all semesters</td></tr>
+      <tr><td>Calculation</td><td>Based on one semester's grades</td><td>Weighted average of all semesters</td></tr>
+      <tr><td>Range</td><td>0 to 10</td><td>0 to 10</td></tr>
+      <tr><td>Usage</td><td>Semester-level assessment</td><td>Final degree classification</td></tr>
+      <tr><td>Appears On</td><td>Semester mark sheets</td><td>Final degree certificate</td></tr>
+      <tr><td>Updates</td><td>Every semester</td><td>After each semester completion</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span style="font-weight: 400;">Anna University Regulations Explained</span></h2>
+    <h3>Regulation 2021</h3>
+    <p><span style="font-weight: 400;">Regulation 2021 introduces outcome-based education with continuous assessment and a 10-point grading system, with pass mark at 40% (Grade C).</span></p>
+
+    <h3>Regulation 2017</h3>
+    <p><span style="font-weight: 400;">Regulation 2017 emphasizes industry-oriented curriculum and lab-based learning, allowing passing from 45% in certain subjects with total program credits around 160–168.</span></p>
+
+    <h3>Regulation 2013</h3>
+    <p><span style="font-weight: 400;">Regulation 2013 modernized Anna University's structure with traditional subject evaluation and minimum 50% passing marks, focusing on core engineering subjects.</span></p>
+  </section>
+
+  <section>
+    <h2><span style="font-weight: 400;">Why CGPA Matters for Anna University Students</span></h2>
+    <ul>
+      <li><b>Degree Classification:</b> CGPA ≥ 7.5 = First Class with Distinction; 6.0–7.49 = First Class; 5.0–5.99 = Second Class; &lt;5.0 = Pass.</li>
+      <li><b>Placement Eligibility:</b> Top recruiters set CGPA cutoffs from 6.0–7.5.</li>
+      <li><b>Higher Education & Scholarships:</b> Minimum CGPA 7.5–8.0 required for top programs and scholarships.</li>
+      <li><b>Government Jobs:</b> Many technical roles consider CGPA as part of eligibility.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span style="font-weight: 400;">FAQs – Anna University CGPA Calculator (2025)</span></h2>
+    <p><b>What is the CGPA formula for Anna University?</b><br><span style="font-weight: 400;">CGPA = ∑(Semester GPA × Credits) ÷ ∑Credits</span></p>
+    <p><b>How do I convert CGPA to percentage?</b><br><span style="font-weight: 400;">Percentage = (CGPA - 0.75) × 10</span></p>
+    <p><b>Minimum CGPA for distinction?</b><br><span style="font-weight: 400;">7.5 and above ensures First Class with Distinction.</span></p>
+    <p><b>Do autonomous colleges follow same system?</b><br><span style="font-weight: 400;">Yes, most follow similar CGPA rules with minor variations.</span></p>
+    <p><b>Can CGPA be improved later?</b><br><span style="font-weight: 400;">Yes, higher future GPAs increase cumulative CGPA.</span></p>
+  </section>
+
+  <section>
+    <h2><span style="font-weight: 400;">Conclusion</span></h2>
+    <p><span style="font-weight: 400;">Understanding and tracking your CGPA is vital for academic success at Anna University. This calculator ensures precise, regulation-specific results to help you plan your academic path effectively.</span></p>
+    <p><b>Bookmark this calculator</b><span style="font-weight: 400;"> and check your progress after every semester for accurate insights into your academic performance.</span></p>
+  </section>
+</article>
+
+  </div>
+
+  <!-- ---------- Footer (UNCHANGED) ---------- -->
+  <footer>
+    © 2025 IPU CGPA Calculator. All rights reserved.
+  </footer>
+
+  <script>
+    // Add / Remove / Calculate logic (Anna University grading)
+    function addRow() {
+      const container = document.getElementById('subjects');
+      const div = document.createElement('div');
+      div.className = 'row subject-row';
+      div.innerHTML = `
+        <input type="text" class="medium subject-name" placeholder="Subject name (optional)" />
+        <input type="number" min="0" step="1" class="small credit" placeholder="Credits" />
+        <select class="small grade">
+          <option value="10">O</option>
+          <option value="9">A+</option>
+          <option value="8">A</option>
+          <option value="7">B+</option>
+          <option value="6">B</option>
+          <option value="5">C</option>
+          <option value="0">RA / U</option>
+        </select>
+        <button type="button" onclick="removeThis(this)" title="Remove">Remove</button>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeThis(btn) {
+      const row = btn.closest('.subject-row');
+      if (row) row.remove();
+    }
+
+    function calculateAnnaCGPA() {
+      const rows = document.querySelectorAll('#subjects .subject-row');
+      let totalCredits = 0;
+      let totalPoints = 0;
+      rows.forEach(row => {
+        const creditInput = row.querySelector('.credit');
+        const gradeSelect = row.querySelector('.grade');
+        const credit = parseFloat(creditInput.value);
+        const gradePoint = parseFloat(gradeSelect.value);
+        if (!isNaN(credit) && credit > 0) {
+          totalCredits += credit;
+          totalPoints += credit * gradePoint;
+        }
+      });
+
+      const resEl = document.getElementById('result');
+      if (totalCredits === 0) {
+        resEl.textContent = 'Please enter credits for at least one subject.';
+        return;
+      }
+      const cgpa = (totalPoints / totalCredits);
+      const cgpaRounded = cgpa.toFixed(2);
+      const percentage = ((cgpa - 0.75) * 10);
+      const percRounded = percentage.toFixed(2);
+      resEl.innerHTML = `Your CGPA is <strong>${cgpaRounded}</strong><br>Equivalent Percentage: <strong>${percRounded}%</strong>`;
+    }
+
+    function resetAll() {
+      // clear rows except one
+      const container = document.getElementById('subjects');
+      container.innerHTML = '';
+      const initial = document.createElement('div');
+      initial.className = 'row subject-row';
+      initial.innerHTML = `
+        <input type="text" class="medium subject-name" placeholder="Subject name (optional)" />
+        <input type="number" min="0" step="1" class="small credit" placeholder="Credits" />
+        <select class="small grade">
+          <option value="10">O</option>
+          <option value="9">A+</option>
+          <option value="8">A</option>
+          <option value="7">B+</option>
+          <option value="6">B</option>
+          <option value="5">C</option>
+          <option value="0">RA / U</option>
+        </select>
+        <button type="button" onclick="removeThis(this)" title="Remove">Remove</button>
+      `;
+      container.appendChild(initial);
+      document.getElementById('result').innerHTML = '';
+    }
+  </script>
+</body>
+</html>

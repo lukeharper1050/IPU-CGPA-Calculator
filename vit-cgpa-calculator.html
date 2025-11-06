@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIT CGPA Calculator (2025)</title>
+  <meta name="description" content="VIT CGPA Calculator — calculate CGPA and percentage for VIT (Vellore, Chennai, AP, Bhopal) using official VIT formula." />
+  <style>
+    /* ---------- Global Styles ---------- */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f7f9fc;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* ---------- Header / Navigation Styles ---------- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: linear-gradient(135deg, #2193b0, #6dd5ed);
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    nav ul li a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      min-width: 200px;
+      border-radius: 6px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+
+    .dropdown-content li a {
+      color: #333;
+      padding: 10px 15px;
+      display: block;
+    }
+
+    .dropdown-content li a:hover {
+      background: #f0f6fa;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .arrow {
+      font-size: 0.7rem;
+      margin-left: 5px;
+    }
+
+    /* ---------- Container ---------- */
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* ---------- Card / Calculator ---------- */
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      padding: 30px 40px;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h2 {
+      color: #2193b0;
+      margin-bottom: 10px;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .row input[type="text"], .row input[type="number"], .row select {
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+    }
+
+    .small {
+      width: 120px;
+    }
+
+    .medium {
+      width: 220px;
+    }
+
+    button {
+      background: #2193b0;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin: 6px;
+    }
+
+    button:hover {
+      background: #176d85;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* ---------- Article Content ---------- */
+    article {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 30px 40px;
+    }
+
+    article h2 {
+      color: #176d85;
+      margin-top: 30px;
+    }
+
+    article pre, article table {
+      background: #f0f6fa;
+      padding: 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    article table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+
+    article th, article td {
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    article th {
+      background: #2193b0;
+      color: white;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #2193b0, #6dd5ed);
+      color: white;
+      margin-top: 40px;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+      }
+      nav ul li {
+        width: 100%;
+      }
+      nav ul li a {
+        width: 100%;
+      }
+      .dropdown-content {
+        position: relative;
+        top: 0;
+        left: 0;
+      }
+      .container {
+        padding: 10px;
+      }
+      article {
+        padding: 20px;
+      }
+      .row { flex-direction: column; }
+      .small, .medium { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ---------- Navigation (from homepage) ---------- -->
+  <header>
+    <div class="logo">
+      <h1>IPU CGPA Calculator</h1>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#">Tools <span class="arrow">▼</span></a>
+          <ul class="dropdown-content">
+            <li><a href="vit-cgpa-calculator.html">Vit CGPA Calculator</a></li>
+            <li><a href="srm-cgpa-calculator.html">SRM CGPA Calculator</a></li>
+            <li><a href="anna-university-cgpa-calculator.html">Anna University CGPA Calculator </a></li>
+          </ul>
+        </li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ---------- Main Container (VIT-specific content) ---------- -->
+  <div class="container">
+    <div class="card">
+      <h2>VIT CGPA Calculator</h2>
+      <p>Enter subjects, credits and select grades (S=10, A=9, B=8, C=7, D=6, E=5, F=0). Click Calculate to get CGPA and percentage.</p>
+
+      <div id="subjects">
+        <div class="row subject-row">
+          <input type="text" class="medium subject-name" placeholder="Subject name (optional)" />
+          <input type="number" min="0" step="1" class="small credit" placeholder="Credits" />
+          <select class="small grade">
+            <option value="10">S</option>
+            <option value="9">A</option>
+            <option value="8">B</option>
+            <option value="7">C</option>
+            <option value="6">D</option>
+            <option value="5">E</option>
+            <option value="0">F</option>
+          </select>
+          <button type="button" onclick="removeThis(this)" title="Remove">Remove</button>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <button onclick="addRow()">Add Subject</button>
+        <button onclick="calculateVITCGPA()">Calculate</button>
+        <button onclick="resetAll()">Calculate Again</button>
+      </div>
+
+      <div class="result" id="result"></div>
+    </div>
+
+    <article>
+<section>
+  <p><span style="font-weight: 400;">Tracking your academic performance at Vellore Institute of Technology (VIT) just got easier. The VIT CGPA Calculator is a free online tool designed to help students calculate their Cumulative Grade Point Average (CGPA) and convert it to percentage instantly—without any manual calculations or confusion.</span></p>
+  <p><span style="font-weight: 400;">Whether you're studying at VIT Vellore, VIT Chennai, VIT-AP (Andhra Pradesh), or VIT Bhopal, this calculator works seamlessly across all campuses. It takes into account VIT's unique grading system, credit weightage, and conversion formulas to give you accurate results in seconds.</span></p>
+</section>
+
+<section>
+  <h2><span style="font-weight: 400;">What is VIT CGPA Calculator?</span></h2>
+  <p><span style="font-weight: 400;">CGPA stands for Cumulative Grade Point Average—a standardized measure used by VIT University to evaluate student performance across all semesters. It reflects your overall academic achievement by combining grades from every course you've completed, weighted by their respective credit hours.</span></p>
+  <p><span style="font-weight: 400;">VIT uses the CGPA system to maintain consistency and fairness in assessing students. Unlike percentage-based systems, CGPA considers both the difficulty (credits) and your performance (grade points) in each subject, giving a more balanced view of your abilities.</span></p>
+  <p><span style="font-weight: 400;">While you can calculate CGPA manually, the process involves multiple steps—multiplying credits with grade points, summing them up, and dividing by total credits. That's where the VIT CGPA Calculator comes in. It automates the entire process, eliminating human error and saving you valuable time.</span></p>
+</section>
+
+<section>
+  <h2><span style="font-weight: 400;">How to Calculate CGPA in VIT University</span></h2>
+  <p><span style="font-weight: 400;">Understanding the CGPA formula is essential for every VIT student. Here's the mathematical foundation:</span></p>
+  <p><b>CGPA = (Σ Credit × Grade Point) ÷ (Σ Credits)</b></p>
+  <ul>
+    <li><span style="font-weight: 400;">Σ (Sigma) means "sum of"</span></li>
+    <li><span style="font-weight: 400;">Credit = number of credit hours assigned to each course</span></li>
+    <li><span style="font-weight: 400;">Grade Point = numerical value assigned to your letter grade</span></li>
+    <li><span style="font-weight: 400;">Σ Credits = total credit hours of all courses combined</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span style="font-weight: 400;">Step-by-Step Calculation Guide</span></h2>
+  <ol>
+    <li><b>List All Your Subjects:</b> <span style="font-weight: 400;">Create a list of all courses you've completed, with their credit hours and grades.</span></li>
+    <li><b>Multiply Credits by Grade Points:</b> <span style="font-weight: 400;">For each subject, multiply credits × grade points.</span></li>
+    <li><b>Add All Results:</b> <span style="font-weight: 400;">Sum the values from step 2 to get total weighted grade points.</span></li>
+    <li><b>Divide by Total Credits:</b> <span style="font-weight: 400;">Divide total weighted grade points by sum of all credits to get CGPA.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2><span style="font-weight: 400;">Sample CGPA Calculation Table</span></h2>
+  <table border="1" cellpadding="6" cellspacing="0">
+    <tr><th>Subject</th><th>Credits</th><th>Grade</th><th>Grade Point</th><th>Credit × Grade Point</th></tr>
+    <tr><td>Mathematics</td><td>4</td><td>A</td><td>9</td><td>36</td></tr>
+    <tr><td>Physics</td><td>3</td><td>B</td><td>8</td><td>24</td></tr>
+    <tr><td>Chemistry</td><td>3</td><td>S</td><td>10</td><td>30</td></tr>
+    <tr><td><b>Total</b></td><td>10</td><td>—</td><td>—</td><td>90</td></tr>
+  </table>
+  <p><b>CGPA = 90 ÷ 10 = 9.0</b></p>
+</section>
+
+<section>
+  <h2><span style="font-weight: 400;">VIT Grading System Explained</span></h2>
+  <table border="1" cellpadding="6" cellspacing="0">
+    <tr><th>Grade</th><th>Grade Point</th><th>Description</th></tr>
+    <tr><td>S</td><td>10</td><td>Outstanding</td></tr>
+    <tr><td>A</td><td>9</td><td>Excellent</td></tr>
+    <tr><td>B</td><td>8</td><td>Very Good</td></tr>
+    <tr><td>C</td><td>7</td><td>Good</td></tr>
+    <tr><td>D</td><td>6</td><td>Satisfactory</td></tr>
+    <tr><td>E</td><td>5</td><td>Pass</td></tr>
+    <tr><td>F</td><td>0</td><td>Fail</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2><span style="font-weight: 400;">How to Convert VIT CGPA to Percentage</span></h2>
+  <p><span style="font-weight: 400;">VIT follows a specific conversion formula:</span></p>
+  <p><b>Percentage = (CGPA – 0.5) × 10</b></p>
+  <p><b>Example:</b> <span style="font-weight: 400;">CGPA = 8.6 → (8.6 – 0.5) × 10 = 81 %</span></p>
+  <ul>
+    <li><span style="font-weight: 400;">CGPA 9.5 = 95 %</span></li>
+    <li><span style="font-weight: 400;">CGPA 9.0 = 85 %</span></li>
+    <li><span style="font-weight: 400;">CGPA 8.0 = 75 %</span></li>
+    <li><span style="font-weight: 400;">CGPA 7.5 = 70 %</span></li>
+    <li><span style="font-weight: 400;">CGPA 7.0 = 65 %</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span style="font-weight: 400;">Difference Between CGPA and GPA in VIT</span></h2>
+  <p><span style="font-weight: 400;">CGPA represents overall performance; SGPA covers a single semester. GPA is a general term often used interchangeably with SGPA in VIT.</span></p>
+  <p><span style="font-weight: 400;">Your CGPA is a weighted average of all SGPAs. If you score higher SGPA in a new semester, your CGPA will increase proportionally.</span></p>
+</section>
+
+<section>
+  <h2><span style="font-weight: 400;">Benefits of Using the VIT CGPA Calculator</span></h2>
+  <ul>
+    <li><b>Instant and Accurate Results</b> – <span style="font-weight: 400;">No math errors; formula built-in.</span></li>
+    <li><b>No Manual Math Required</b> – <span style="font-weight: 400;">Automates credits and grade calculations.</span></li>
+    <li><b>Works for All Campuses</b> – <span style="font-weight: 400;">Vellore, Chennai, AP, Bhopal supported.</span></li>
+    <li><b>Calculates Both CGPA and Percentage</b></li>
+    <li><b>Mobile-Friendly and Easy to Use</b></li>
+    <li><b>Free and Accessible</b></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span style="font-weight: 400;">Common Mistakes Students Make</span></h2>
+  <ul>
+    <li><span style="font-weight: 400;">Ignoring Credit Weightage</span></li>
+    <li><span style="font-weight: 400;">Entering Wrong Grade Points</span></li>
+    <li><span style="font-weight: 400;">Mixing GPA with CGPA</span></li>
+    <li><span style="font-weight: 400;">Missing Lab or Course Credits</span></li>
+    <li><span style="font-weight: 400;">Using Wrong Conversion Formula</span></li>
+    <li><span style="font-weight: 400;">Not Updating After Supplementary Exams</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span style="font-weight: 400;">FAQs – VIT CGPA Calculator (2025)</span></h2>
+  <ul>
+    <li><b>How is CGPA calculated in VIT?</b> <span style="font-weight: 400;">CGPA = (Σ Credit × Grade Point) ÷ (Σ Credits).</span></li>
+    <li><b>Official VIT CGPA to Percentage Formula?</b> <span style="font-weight: 400;">(CGPA – 0.5) × 10.</span></li>
+    <li><b>Good CGPA for Placements?</b> <span style="font-weight: 400;">7.5 or above is competitive; 8.5 + for top firms.</span></li>
+    <li><b>Does VIT Round off CGPA?</b> <span style="font-weight: 400;">No, values shown to two decimals.</span></li>
+    <li><b>How to Calculate SGPA Manually?</b> <span style="font-weight: 400;">SGPA = (Σ Credit × Grade Point per semester) ÷ (Σ Credits per semester).</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span style="font-weight: 400;">Final Thoughts</span></h2>
+  <p><span style="font-weight: 400;">Understanding your CGPA helps you plan academically and track progress. The VIT CGPA Calculator simplifies the entire process, letting you focus on learning and growth rather than manual math.</span></p>
+  <p><b>Ready to know where you stand?</b> <span style="font-weight: 400;">Try the VIT CGPA Calculator now and get instant results!</span></p>
+</section>
+
+    </article>
+    
+  </div>
+
+  <!-- ---------- Footer (from homepage) ---------- -->
+  <footer>
+    © 2025 IPU CGPA Calculator. All rights reserved.
+  </footer>
+
+  <script>
+    // Add / Remove / Calculate logic (VIT grading)
+    function addRow() {
+      const container = document.getElementById('subjects');
+      const div = document.createElement('div');
+      div.className = 'row subject-row';
+      div.innerHTML = `
+        <input type="text" class="medium subject-name" placeholder="Subject name (optional)" />
+        <input type="number" min="0" step="1" class="small credit" placeholder="Credits" />
+        <select class="small grade">
+          <option value="10">S</option>
+          <option value="9">A</option>
+          <option value="8">B</option>
+          <option value="7">C</option>
+          <option value="6">D</option>
+          <option value="5">E</option>
+          <option value="0">F</option>
+        </select>
+        <button type="button" onclick="removeThis(this)" title="Remove">Remove</button>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeThis(btn) {
+      const row = btn.closest('.subject-row');
+      if (row) row.remove();
+    }
+
+    function calculateVITCGPA() {
+      const rows = document.querySelectorAll('#subjects .subject-row');
+      let totalCredits = 0;
+      let totalPoints = 0;
+      rows.forEach(row => {
+        const creditInput = row.querySelector('.credit');
+        const gradeSelect = row.querySelector('.grade');
+        const credit = parseFloat(creditInput.value);
+        const gradePoint = parseFloat(gradeSelect.value);
+        if (!isNaN(credit) && credit > 0) {
+          totalCredits += credit;
+          totalPoints += credit * gradePoint;
+        }
+      });
+
+      const resEl = document.getElementById('result');
+      if (totalCredits === 0) {
+        resEl.textContent = 'Please enter credits for at least one subject.';
+        return;
+      }
+      const cgpa = (totalPoints / totalCredits);
+      const cgpaRounded = cgpa.toFixed(2);
+      const percentage = ((cgpa - 0.5) * 10);
+      const percRounded = percentage.toFixed(2);
+      resEl.innerHTML = `Your CGPA is <strong>${cgpaRounded}</strong><br>Equivalent Percentage: <strong>${percRounded}%</strong>`;
+    }
+
+    function resetAll() {
+      const container = document.getElementById('subjects');
+      container.innerHTML = '';
+      const initial = document.createElement('div');
+      initial.className = 'row subject-row';
+      initial.innerHTML = `
+        <input type="text" class="medium subject-name" placeholder="Subject name (optional)" />
+        <input type="number" min="0" step="1" class="small credit" placeholder="Credits" />
+        <select class="small grade">
+          <option value="10">S</option>
+          <option value="9">A</option>
+          <option value="8">B</option>
+          <option value="7">C</option>
+          <option value="6">D</option>
+          <option value="5">E</option>
+          <option value="0">F</option>
+        </select>
+        <button type="button" onclick="removeThis(this)" title="Remove">Remove</button>
+      `;
+      container.appendChild(initial);
+      document.getElementById('result').innerHTML = '';
+    }
+  </script>
+</body>
+</html>

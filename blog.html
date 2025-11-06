@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | IPU CGPA Calculator</title>
+  <style>
+    /* ---------- Global Styles ---------- */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f7f9fc;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2193b0, #6dd5ed);
+      color: white;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.5px;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      transition: 0.3s;
+      padding: 8px 16px;
+      border-radius: 6px;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* ---------- Container ---------- */
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* ---------- Blog Cards ---------- */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .blog-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      padding: 20px 25px;
+      transition: transform 0.3s ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .blog-card h2 {
+      color: #2193b0;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .blog-card p {
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    .blog-card a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #176d85;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .blog-card a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #2193b0, #6dd5ed);
+      color: white;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .container {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ---------- Header Section ---------- -->
+  <header>
+    <h1>IPU CGPA Calculator</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Blog</a>
+    </nav>
+  </header>
+
+  <!-- ---------- Main Container ---------- -->
+  <div class="container">
+    <h1>Latest Blog Posts</h1>
+    <div class="blog-grid">
+      <!-- Blog Card 1 -->
+      <div class="blog-card">
+        <h2>How to Calculate Your CGPA Accurately</h2>
+        <p>Learn the step-by-step process to calculate your CGPA at IPU, including the official formula, examples, and tips to avoid mistakes.</p>
+        <a href="#">Read More</a>
+      </div>
+
+      <!-- Blog Card 2 -->
+      <div class="blog-card">
+        <h2>IPU CGPA to Percentage Conversion Guide</h2>
+        <p>Understand the official IPU formula to convert CGPA to percentage and see example calculations for clarity.</p>
+        <a href="#">Read More</a>
+      </div>
+
+      <!-- Blog Card 3 -->
+      <div class="blog-card">
+        <h2>VIT CGPA Calculator: Step-by-Step Guide</h2>
+        <p>Check your academic performance at VIT with our free online CGPA calculator and learn the calculation formula.</p>
+        <a href="#">Read More</a>
+      </div>
+
+      <!-- Blog Card 4 -->
+      <div class="blog-card">
+        <h2>SRM CGPA Calculator & Grade Mapping</h2>
+        <p>Calculate your SRM University CGPA easily using our tool and understand the SRM grade mapping system.</p>
+        <a href="#">Read More</a>
+      </div>
+
+      <!-- Add more blog cards as needed -->
+    </div>
+  </div>
+
+  <!-- ---------- Footer Section ---------- -->
+  <footer>
+    © 2025 IPU CGPA Calculator. All rights reserved.
+  </footer>
+
+</body>
+</html>
