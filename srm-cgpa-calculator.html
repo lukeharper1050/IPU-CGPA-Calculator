@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SRM CGPA Calculator (2025) – Calculate Your SRM CGPA Online</title>
-  <meta name="description" content="Easily calculate your SRM CGPA and percentage using the official SRM grading system (O=10, A+=9, A=8, B+=7, B=6, C=5, F=0). Free and accurate tool for SRM students." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SRM CGPA Calculator 2025 – Calculate Your Semester CGPA</title>
+  <meta name="description" content="Easily calculate your SRM CGPA online with our free tool. Track your semester scores, plan your grades, and achieve academic success quickly and accurately." />
   <style>
-    /* ---------- Global Styles (same as your IPU homepage) ---------- */
+    /* ---------- Global Styles ---------- */
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -15,38 +15,78 @@
       line-height: 1.6;
     }
 
+    /* ---------- Header / Navigation Styles ---------- */
     header {
-      background: linear-gradient(135deg, #2193b0, #6dd5ed);
-      color: white;
-      padding: 20px 50px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 15px 40px;
+      background: linear-gradient(135deg, #2193b0, #6dd5ed);
+      color: white;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      flex-wrap: wrap;
     }
 
     header h1 {
       margin: 0;
       font-size: 1.8rem;
-      letter-spacing: 0.5px;
     }
 
-    nav {
+    nav ul {
+      list-style: none;
       display: flex;
       gap: 20px;
+      margin: 0;
+      padding: 0;
+      align-items: center;
     }
 
-    nav a {
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
       text-decoration: none;
       color: white;
       font-weight: 600;
-      transition: 0.3s;
-      padding: 8px 16px;
-      border-radius: 6px;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background 0.3s;
     }
 
-    nav a:hover {
+    nav ul li a:hover {
       background: rgba(255,255,255,0.2);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      min-width: 200px;
+      border-radius: 6px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+
+    .dropdown-content li a {
+      color: #333;
+      padding: 10px 15px;
+      display: block;
+    }
+
+    .dropdown-content li a:hover {
+      background: #f0f6fa;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .arrow {
+      font-size: 0.7rem;
+      margin-left: 5px;
     }
 
     /* ---------- Container ---------- */
@@ -124,7 +164,7 @@
       color: #333;
     }
 
-    /* ---------- Content ---------- */
+    /* ---------- Article Content ---------- */
     article {
       background: white;
       border-radius: 12px;
@@ -161,6 +201,7 @@
       color: white;
     }
 
+    /* ---------- Footer ---------- */
     footer {
       text-align: center;
       padding: 20px;
@@ -169,10 +210,26 @@
       margin-top: 40px;
     }
 
+    /* ---------- Responsive ---------- */
     @media (max-width: 768px) {
       header {
         flex-direction: column;
-        gap: 10px;
+        align-items: flex-start;
+      }
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+      }
+      nav ul li {
+        width: 100%;
+      }
+      nav ul li a {
+        width: 100%;
+      }
+      .dropdown-content {
+        position: relative;
+        top: 0;
+        left: 0;
       }
       .container {
         padding: 10px;
@@ -187,25 +244,34 @@
 </head>
 <body>
 
-  <!-- ---------- Header (UNCHANGED) ---------- -->
+  <!-- ---------- Navigation (from homepage) ---------- -->
   <header>
-    <h1>IPU CGPA Calculator</h1>
+    <div class="logo">
+      <h1>IPU CGPA Calculator</h1>
+    </div>
     <nav>
-      <a href="#">Home</a>
-      <a href="#">Blog</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#">Tools <span class="arrow">▼</span></a>
+          <ul class="dropdown-content">
+            <li><a href="vit-cgpa-calculator.html">Vit CGPA Calculator</a></li>
+            <li><a href="srm-cgpa-calculator.html">SRM CGPA Calculator</a></li>
+            <li><a href="anna-university-cgpa-calculator.html">Anna University CGPA Calculator</a></li>
+          </ul>
+        </li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
     </nav>
   </header>
 
-  <!-- ---------- Main Container (SRM page content only) ---------- -->
+  <!-- ---------- Main Container (SRM-specific content) ---------- -->
   <div class="container">
-
-    <!-- ---------- SRM CGPA Calculator Card (tool at top) ---------- -->
     <div class="card">
       <h2>SRM CGPA Calculator</h2>
-      <p>Enter subjects, credits and select grades (O=10, A+=9, A=8, B+=7, B=6, C=5, F=0). Click Calculate to get CGPA and percentage.</p>
+      <p>Enter subjects, credits, and select grades (O=10, A+=9, A=8, B+=7, B=6, C=5, F=0). Click Calculate to get CGPA and percentage.</p>
 
       <div id="subjects">
-        <!-- One initial row -->
         <div class="row subject-row">
           <input type="text" class="medium subject-name" placeholder="Subject name (optional)" />
           <input type="number" min="0" step="1" class="small credit" placeholder="Credits" />
@@ -231,10 +297,9 @@
       <div class="result" id="result"></div>
     </div>
 
-    <!-- ---------- Article: SRM content in Option A inline format ---------- -->
 <article>
   <section>
-    <span style="font-weight: 400;">Are you an SRM University student looking to calculate your CGPA quickly and accurately? Our SRM CGPA Calculator helps you compute your semester GPA and cumulative CGPA in seconds, following the official SRM grading system for all regulations including 2018 and 2021.</span>
+    <span style="font-weight: 400;">Are you an SRM University student looking to calculate your CGPA quickly and accurately? Our SRM CGPA Calculator helps you compute your semester GPA and cumulative CGPA in seconds, following the official SRM grading system for all regulations including 2018 and 2021. If you’re from IP University, you can also use the <a href="index.html">IPU CGPA Calculator</a> to calculate your CGPA instantly.</span>
   </section>
 
   <section>
@@ -248,7 +313,7 @@
     <ol>
       <li><span style="font-weight: 400;">Collect your grade cards from all completed semesters.</span></li>
       <li><span style="font-weight: 400;">Note down the grade received in each subject (O, A+, A, B+, B, C, P, F, or Ab).</span></li>
-      <li><span style="font-weight: 400;">Record the credits assigned to each subject (usually 3–4 for theory, 1–2 for lab).</span></li>
+      <li><span style="font-weight: 400;">Record the credits assigned to each subject (usually 3-4 for theory, 1-2 for lab).</span></li>
       <li><span style="font-weight: 400;">Convert each grade to grade points using the SRM grading table.</span></li>
       <li><span style="font-weight: 400;">Multiply grade points by credits for each subject to get “Grade Points Earned”.</span></li>
       <li><span style="font-weight: 400;">Add all grade points earned across all subjects in that semester.</span></li>
@@ -352,11 +417,11 @@
 
   <section>
     <h2><span style="font-weight: 400;">SRM Credit Structure</span></h2>
-    <p><b>Theory Courses:</b> 3–4 credits depending on lecture hours per week.</p>
-    <p><b>Laboratory Courses:</b> 1–2 credits based on practical duration.</p>
-    <p><b>Project Work:</b> 6–10 credits for final year projects.</p>
-    <p><b>Seminar/Internship:</b> 1–2 credits depending on duration.</p>
-    <p><span style="font-weight: 400;">A typical B.Tech semester at SRM carries 18–24 credits, with eight semesters totaling ~160 credits.</span></p>
+    <p><b>Theory Courses:</b> 3-4 credits depending on lecture hours per week.</p>
+    <p><b>Laboratory Courses:</b> 1-2 credits based on practical duration.</p>
+    <p><b>Project Work:</b> 6-10 credits for final year projects.</p>
+    <p><b>Seminar/Internship:</b> 1-2 credits depending on duration.</p>
+    <p><span style="font-weight: 400;">A typical B.Tech semester at SRM carries 18-24 credits, with eight semesters totaling ~160 credits.</span></p>
   </section>
 
   <section>
@@ -364,7 +429,7 @@
     <h3>Accurate and Reliable Results</h3>
     <p>Our calculator follows SRM’s official grading formula, ensuring 100% accurate results every time.</p>
     <h3>Easy to Use</h3>
-    <p>No math skills required — enter your grades and credits, and the calculator gives instant GPA/CGPA.</p>
+    <p>No math skills required enter your grades and credits, and the calculator gives instant GPA/CGPA.</p>
     <h3>Plan Ahead and Track Progress</h3>
     <p>Simulate grades to reach target CGPA goals, identify weak subjects, and plan academic improvement effectively.</p>
   </section>
@@ -415,8 +480,8 @@
     <p><b>How does SRM calculate GPA and CGPA?</b><br>GPA = Σ (Grade Points × Credits) ÷ Σ Credits (per semester). CGPA = total grade points ÷ total credits (all semesters).</p>
     <p><b>Does this calculator work for Regulation 2021?</b><br>Yes, it supports all regulations (2018, 2021, etc.) and uses the same 10-point scale.</p>
     <p><b>How do I calculate my percentage from CGPA?</b><br>Use SRM’s official formula: (CGPA - 0.5) × 10.</p>
-    <p><b>What is a good CGPA at SRM University?</b><br>8.5+ is excellent, 7.5–8.5 is very good, 7.0–7.5 is good, and 6.0 is minimum to maintain academic standing.</p>
-    <p><b>Can I improve my CGPA later?</b><br>Yes, by performing better in future semesters — focus on high-credit subjects for maximum impact.</p>
+    <p><b>What is a good CGPA at SRM University?</b><br>8.5+ is excellent, 7.5,8.5 is very good, 7.0,7.5 is good, and 6.0 is minimum to maintain academic standing.</p>
+    <p><b>Can I improve my CGPA later?</b><br>Yes, by performing better in future semesters focus on high-credit subjects for maximum impact.</p>
     <p><b>What happens if I fail a subject?</b><br>It’s counted as 0 grade points until cleared. After passing, the new grade replaces the failed one in CGPA calculation.</p>
   </section>
 
@@ -429,7 +494,7 @@
 
   </div>
 
-  <!-- ---------- Footer (UNCHANGED) ---------- -->
+  <!-- ---------- Footer (from homepage) ---------- -->
   <footer>
     © 2025 IPU CGPA Calculator. All rights reserved.
   </footer>
@@ -490,7 +555,6 @@
     }
 
     function resetAll() {
-      // clear rows except one
       const container = document.getElementById('subjects');
       container.innerHTML = '';
       const initial = document.createElement('div');
