@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://ipu-cgpa-calculator.vercel.app/</loc>
+  <lastmod>2025-11-14T19:40:32+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://ipu-cgpa-calculator.vercel.app/vit-cgpa-calculator.html</loc>
+  <lastmod>2025-11-14T19:40:33+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ipu-cgpa-calculator.vercel.app/srm-cgpa-calculator.html</loc>
+  <lastmod>2025-11-14T19:40:33+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ipu-cgpa-calculator.vercel.app/anna-university-cgpa-calculator.html</loc>
+  <lastmod>2025-11-14T19:40:33+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ipu-cgpa-calculator.vercel.app/blog.html</loc>
+  <lastmod>2025-11-14T19:40:33+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ipu-cgpa-calculator.vercel.app/How-to-Calculate-CGPA-in-IP-University-Complete-guide.html</loc>
+  <lastmod>2025-11-14T19:40:34+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
